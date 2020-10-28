@@ -1,0 +1,36 @@
+<h1>Инофрмация о пациенте</h1>
+<div class="input-info">
+    <form>
+        <div class="patient-form_text">Идентификатор</div> 
+        <input id="patient-id" type="text" required>
+        <div class="patient-form_text">Имя</div>
+        <input id="patient-name" type="text" required> 
+        <div class="patient-form_text">Фамилия</div>
+        <input id="patient-surname" type="text" required>
+        <div class="patient-form_text">День рождения</div>
+        <input id="patient-birthday" type="date">
+        <div class="patient-form_text" required>Пол</div>
+        <select id="patient-gender">
+            <option>Мужчина</option>
+            <option>Женщина</option>
+        </select>
+        <div class="patient-form_text">Тип крови</div>
+        <select id="patient-blood">
+            <option>I+</option>
+            <option>I-</option>
+            <option>II+</option>
+            <option>II-</option>
+            <option>III+</option>
+            <option>III-</option>
+            <option>IV+</option>
+            <option>IV-</option>
+        </select>
+        <div class="patient-form_text">Номер телефона</div>
+        <input id="patient-phone" type="tel">
+        <div class="patient-form_text">Email</div>
+        <input id="patient-email" type="email">
+        <div class="patient-form_text">Адресс</div>
+        <input id="patient-adress" type="text">
+        <input type="submit" (click)="PatientSave()" class="patient-save" value="Сохранить">
+    </form>
+</div>
