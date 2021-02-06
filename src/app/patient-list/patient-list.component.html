@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="wrapper">
+    <select #proc (change) ="showInfo(proc.value)" size="40">
+        <option [ngValue]="undefined" disabled selected>Выберите пациента</option>
+        <option *ngFor ="let patient of patients" [value]="patient.id">{{patient.name}} {{patient.surname}} {{patient.patronymic}}</option>
+    </select>
+    <div class="patient-description">
+        <h3>Общая информация</h3>
+        <div>Фамилия: {{description.surname}}</div>
+        <div>Имя: {{description.name}}</div>
+        <div>Отчество: {{description.patronymic}}</div>
+        <div>Дата рождения: {{description.dateBirth}}</div>
+        <div>Пол: {{description.gender}}</div>
+        <div>Тип крови: {{description.bloodType}}</div>
+        <h3>Контакты</h3>
+        <div>Телефон: {{description.phone}}</div>
+        <div>Е-mail: {{description.email}}</div>
+        <h3>Адресс</h3>
+        <div>Страна: {{description.country}}</div>
+        <div>Регион: {{description.region}}</div>
+        <div>Улица: {{description.street}}</div>
+        <div>Дом: {{description.houseDetails}}</div>
+        <h3>Статус</h3>
+        <div>Социальный статус: {{description.socialStatus}}</div>
+        <div>Семейное положение: {{description.maritalStatus}}</div>
+
+
+    </div>
+    <div class="patient-analyzes">
+        <h3>Анализы</h3>
+        <div>{{descrAnal.test}}</div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,64 @@
+{
+"patientList":[
+    {   
+        "id":"1",
+        "surname":"Khlimenkov" ,
+        "name":"ALexey",
+        "patronymic":"leonido",
+        "dateBirth":"2020-20-10",
+        "gender":"Man",
+        "bloodType":"R-01",
+        "phone":"+3902132",
+        "email":"xlsad@mgal.com" ,
+        "country":"Ukr",
+        "region":"Kyib",
+        "street":"Metal",
+        "houseDetails":"4",
+        "socialStatus":"student",
+        "maritalStatus":"No"
+    },{
+        "id":"2",
+        "surname":"Khqqqqlimenkov" ,
+        "name":"ALexey",
+        "patronymic":"leonido",
+        "dateBirth":"2020-20-10",
+        "gender":"Man",
+        "bloodType":"R-01",
+        "phone":"+3902132",
+        "email":"xlsad@mgal.com" ,
+        "country":"Ukr",
+        "region":"Kyib",
+        "street":"Metal",
+        "houseDetails":"4",
+        "socialStatus":"student",
+        "maritalStatus":"No"
+    },{
+        "id":"3",
+        "surname":"limenkov" ,
+        "name":"ALexey",
+        "patronymic":"leonido",
+        "dateBirth":"2020-20-10",
+        "gender":"Man",
+        "bloodType":"R-01",
+        "phone":"+3902132",
+        "email":"xlsad@mgal.com" ,
+        "country":"Ukr",
+        "region":"Kyib",
+        "street":"Metal",
+        "houseDetails":"4",
+        "socialStatus":"student",
+        "maritalStatus":"No"
+    }
+],
+"analyzes":[
+    {
+        "patientId":"1",
+        "test":"test1"
+    },
+    {
+        "patientId":"2",
+        "test":"test2"
+    }
+
+]
+}
