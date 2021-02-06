@@ -1,22 +1,4 @@
-<div class="tabs">
-    <div class="tab">
-     <input type="radio" id="tab1" name="tab-group" checked>
-     <label for="tab1" class="tab-title">Общая информация</label> 
-     <section class="tab-content"><app-patient></app-patient></section>
-    </div> 
-    <div class="tab">
-     <input type="radio" id="tab2" name="tab-group">
-     <label for="tab2" class="tab-title">Лечение</label> 
-     <section class="tab-content"><app-treatmentsession></app-treatmentsession></section>
-    </div>
-    <div class="tab">
-     <input type="radio" id="tab3" name="tab-group">
-     <label for="tab3" class="tab-title">Стадии лечения</label> 
-     <section class="tab-content"><app-treatmentstages></app-treatmentstages></section> 
-    </div> 
-    <div class="tab">
-        <input type="radio" id="tab4" name="tab-group">
-        <label for="tab4" class="tab-title">Анализы</label> 
-        <section class="tab-content"><app-analyzes></app-analyzes></section> 
-       </div> 
-   </div>
+<mat-tab-group animationDuration="300ms">
+    <mat-tab label="Общая информация"><app-patient></app-patient></mat-tab>
+    <mat-tab label="Лечение"><app-treatmentsession></app-treatmentsession></mat-tab>
+</mat-tab-group>

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
+import {HttpClient} from '@angular/common/http'
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 
 @Component({
@@ -6,60 +9,54 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './patient.component.html',
   styleUrls: ['./patient.component.css']
 })
-export class PatientComponent implements OnInit {
- 
+export class PatientComponent {
 
+  form: FormGroup;
 
-  constructor() { 
-    
+  constructor(public fb: FormBuilder,
+    private http: HttpClient) {
+    this.form = this.fb.group({
+      surname: [''],
+      name:[''],
+      patronymic:[''],
+      dateBirth:[''],
+      gender:[''],
+      bloodType:[''],
+      phone:[''],
+      email: [''],
+      country:[''],
+      region:[''],
+      street:[''],
+      houseDetails:[''],
+      socialStatus:[''],
+      maritalStatus:[''],
+    })
   }
 
-  ngOnInit(): void {
-   
-  }
-  
-  
-  patient = {
-    id:'',
-    name:'',
-    surname:'',
-    birthday:'',
-    gender:'',
-    blood:'',
-    phone:'',
-    email:'',
-    adress:'',
-  }
-  
-  PatientSave(){
-    var patient_id=(<HTMLInputElement>document.getElementById('patient-id')).value
-    var patient_name =(<HTMLInputElement>document.getElementById('patient-name')).value
-    var patient_surname =(<HTMLInputElement>document.getElementById('patient-surname')).value
-    var patient_birthday =(<HTMLInputElement>document.getElementById('patient-birthday')).value
-    var patient_gender =(<HTMLInputElement>document.getElementById('patient-gender')).value
-    var patient_blood =(<HTMLInputElement>document.getElementById('patient-blood')).value
-    var patient_phone =(<HTMLInputElement>document.getElementById('patient-phone')).value
-    var patient_email =(<HTMLInputElement>document.getElementById('patient-email')).value
-    var patient_adress =(<HTMLInputElement>document.getElementById('patient-adress')).value
-    if ((patient_id = '') && (patient_surname = '') && (patient_name='')){
-      return false;
-    }
-    else{
-      this.patient.id = patient_id;
-      this.patient.name = patient_name;
-      this.patient.surname = patient_surname;
-      this.patient.birthday = patient_birthday;
-      this.patient.gender = patient_gender;
-      this.patient.blood = patient_blood;
-      this.patient.phone = patient_phone;
-      this.patient.email = patient_email;
-      this.patient.adress = patient_adress;
-    }
-    console.log(this.patient);
-    
-  }
- 
- 
-  
+  ngOnInit() { }
 
+
+  submitForm() {
+    var formData: any = new FormData();
+    formData.append("surname", this.form.get('surname').value);
+    formData.append("name", this.form.get('name').value);
+    formData.append("patronymic", this.form.get('patronymic').value);
+    formData.append("dateBirth", this.form.get('dateBirth').value);
+    formData.append("gender", this.form.get('gender').value);
+    formData.append("bloodType", this.form.get('bloodType').value);
+    formData.append("phone", this.form.get('phone').value);
+    formData.append("email", this.form.get('email').value);
+    formData.append("country", this.form.get('country').value);
+    formData.append("region", this.form.get('region').value);
+    formData.append("street", this.form.get('street').value);
+    formData.append("houseDetails", this.form.get('houseDetails').value);
+    formData.append("socialStatus", this.form.get('socialStatus').value);
+    formData.append("maritalStatus", this.form.get('maritalStatus').value);
+
+
+    this.http.post('http://httpbin.org/post', formData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    )
+  }
 }

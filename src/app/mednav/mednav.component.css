@@ -1,6 +1,5 @@
 .tabs {
     position: relative; /* Относительное позиционирование */
-    margin-top:15px;
    }
 .tab, .tab-title {
 display: inline-block; /* Выстраиваем по горизонтали */

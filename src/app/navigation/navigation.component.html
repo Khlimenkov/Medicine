@@ -1,6 +1,26 @@
-<nav>
-    <ul> 
-        <li><a href="">Главная</a></li>
-        <li><a href="">Медицинская карта</a></li>
-    </ul>
-</nav>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <ul>
+          <li><a routerLink="">Главная</a></li>
+          <li><a routerLink="/medicalcard">Медицинская карта</a></li>
+          <li><a routerLink="/patientlist">Список пациентов</a></li>
+          <li><a href="">Выйти</a></li>
+          
+      </ul>
+     
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <mat-toolbar>
+        <button mat-icon-button>
+          <mat-icon type="button" mat-button (click)="drawer.toggle()">menu</mat-icon>
+        </button>
+        <span>Medicine App</span>
+        <span class="example-spacer"></span>
+     
+      </mat-toolbar>
+      
+    </div>
+    <router-outlet></router-outlet>
+  
+  </mat-drawer-container>

@@ -1,17 +1,69 @@
-<h1>Лечение пациента</h1>
-<div class="input-info">
-    <form>
-        <div class="treatment-form_text">Идентификатор лечения</div> 
-        <input id="treatment-id_session" type="text" required>
-        <div class="treatment-form_text">Идентификатор пациента</div> 
-        <input id="treatment-id_patient" type="text" required>
-        <div class="treatment-form_text">Заболевание</div>
-        <input id="treatment-name" type="text" required> 
-        <div class="treatment-form_text">Начало лечения</div>
-        <input id="treatment-start" type="datetime-local" required>
-        <div class="treatment-form_text">Конец лечения</div>
-        <input id="treatment-end" type="datetime-local">
-        <input type="submit" class="treatment-save" value="Сохранить">
-       
-    </form>
+<div class="container">
+    <div class="general-info">
+        <form class="TreatmentSession">
+            <div class="form-header">Заболевания</div>
+            <!-- <button (click)="addTreatmentSession()">Добавить</button>
+            <button (click)="deleteTreatmentSession()">Удалить</button> -->
+            <table>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Классификатор</mat-label>
+                            <input matInput id="codeIll"/>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Диагноз</mat-label>
+                            <input matInput id="nameIll"/>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Начало лечения</mat-label>
+                            <input id="startSession" matInput type="datetime-local" />
+                            
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Конец лечения</mat-label>
+                            <input id="endSession" matInput type="datetime-local" />
+                            
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            
+        </form>
+        <form>
+            <div class="form-header">Стадии заболевания</div>
+            <table>
+                <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Cтадия</mat-label>
+                        <input matInput id="stageName"/>
+                    </mat-form-field>
+                </td>
+            
+            
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Начало стадии</mat-label>
+                        <input id="startStage" matInput type="datetime-local" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Конец стадии</mat-label>
+                        <input id="endStage" matInput type="datetime-local" />
+                    </mat-form-field>
+                </td>
+            </tr>
+            </table>
+        </form>
+    </div>
 </div>

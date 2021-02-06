@@ -1,36 +1,160 @@
-<h1>Инофрмация о пациенте</h1>
-<div class="input-info">
-    <form>
-        <div class="patient-form_text">Идентификатор</div> 
-        <input id="patient-id" type="text" required>
-        <div class="patient-form_text">Имя</div>
-        <input id="patient-name" type="text" required> 
-        <div class="patient-form_text">Фамилия</div>
-        <input id="patient-surname" type="text" required>
-        <div class="patient-form_text">День рождения</div>
-        <input id="patient-birthday" type="date">
-        <div class="patient-form_text" required>Пол</div>
-        <select id="patient-gender">
-            <option>Мужчина</option>
-            <option>Женщина</option>
-        </select>
-        <div class="patient-form_text">Тип крови</div>
-        <select id="patient-blood">
-            <option>I+</option>
-            <option>I-</option>
-            <option>II+</option>
-            <option>II-</option>
-            <option>III+</option>
-            <option>III-</option>
-            <option>IV+</option>
-            <option>IV-</option>
-        </select>
-        <div class="patient-form_text">Номер телефона</div>
-        <input id="patient-phone" type="tel">
-        <div class="patient-form_text">Email</div>
-        <input id="patient-email" type="email">
-        <div class="patient-form_text">Адресс</div>
-        <input id="patient-adress" type="text">
-        <input type="submit" (click)="PatientSave()" class="patient-save" value="Сохранить">
-    </form>
+<div class="container">
+<div class="general-info">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="form-header">Информация о пациенте</div>
+    <table cellspacing="1">
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Фамилия</mat-label>
+            <input formControlName="surname" matInput id="surname" name="surname"required />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Имя</mat-label>
+            <input matInput id="name" formControlName="name" required />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Отчество</mat-label>
+            <input matInput id="patronymic" formControlName="patronymic" required />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Дата рождения</mat-label>
+      <input id="dateBirth" matInput type="date" formControlName="dateBirth" />
+    </mat-form-field>
+    <table cellspacing="1">
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Пол</mat-label>
+            <mat-select id="gender" formControlName="gender">
+              <mat-option value="man">Мужчина</mat-option>
+              <mat-option value="woman">Женщина</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Тип крови</mat-label>
+            <mat-select id="bloodType" formControlName="bloodType">
+              <mat-option value="O(I) Rh-">O(I) Rh-</mat-option>
+              <mat-option value="O(I) Rh+">O(I) Rh+</mat-option>
+              <mat-option value="A(II) Rh+">A(II) Rh+</mat-option>
+              <mat-option value="A(II) Rh-">A(II) Rh-</mat-option>
+              <mat-option value="B(III) Rh+">B(III) Rh+</mat-option>
+              <mat-option value="B(III) Rh-">B(III) Rh-</mat-option>
+              <mat-option value="AB(IV) Rh+">AB(IV) Rh+</mat-option>
+              <mat-option value="AB(IV) Rh+">AB(IV) Rh+</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <div class="form-header">Контакты</div>
+    <table cellspacing="1"> 
+      <tr>
+        <td>
+    <mat-form-field>
+      <mat-label>Телефон</mat-label>
+      <span matPrefix>+38 &nbsp;</span>
+      <input
+        id="phone"
+        type="tel"
+        formControlName="phone"
+        matInput
+        placeholder="055-555-1234"
+      />
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        id="email"
+        type="email"
+        matInput
+        
+        
+        formControlName="email"
+        placeholder="Ex. pat@example.com"
+      />
+      <!-- <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Веддите правильный Е-mail
+      </mat-error> -->
+    </mat-form-field>
+  </td>
+  </tr>
+  </table>
+  <div class="form-header">Адресс</div>
+  <table cellspasing="1">
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Страна</mat-label>
+          <input matInput id="country" formControlName="country"/>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Область</mat-label>
+          <input matInput id="region" formControlName="region"/>
+        </mat-form-field>
+        
+        
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Улица</mat-label>
+          <input matInput id="street" formControlName="street"/>
+        </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label>Дом, квартира</mat-label>
+        <input matInput id="houseDetails" formControlName="houseDetails"/>
+      </mat-form-field>
+    </td>
+    </tr>
+  </table>
+  <div class="form-header">Статус</div>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Социальный статус</mat-label>
+          
+          <input matInput id="socialStatus" formControlName="socialStatus"/>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Сем. положение</mat-label>
+          <mat-select id="maritalStatus" formControlName="maritalStatus">
+            <mat-option value="Женат/Замужем">Женат/Замужем</mat-option>
+            <mat-option value="Не женат/Не замужем">Не женат/Не замужем</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <button type="submit" [disabled]="form.invalid">Send</button>
+  </form>
+  <app-analyzes></app-analyzes>
 </div>
+</div>
+
+

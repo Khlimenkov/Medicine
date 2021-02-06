@@ -1,21 +1,94 @@
-<h1>Анализы пациента</h1>
-<div class="input-info">
-    <form>
-        <div class="analyzes-form_text">Идентификатор анализов</div> 
-        <input id="analyzes-id" type="text" required>
-        <div class="analyzes-form_text">Идентификатор состояния</div> 
-        <input id="analyzes-id_state" type="text" required>
-        <div class="analyzes-form_text">Название</div>
-        <input id="analyzes-name" type="text" required> 
-        <div class="analyzes-form_text">Значение</div>
-        <input id="analyzes-value" type="text" required>
-        <div class="analyzes-form_text">Юнит тест</div>
-        <input id="analyzes-unit" type="text">
-        <div class="analyzes-form_text">Дата теста</div>
-        <input id="analyzes-date" type="datetime-local">
-        <div class="analyzes-form_text">Компания</div>
-        <input id="analyzes-company" type="text">
-        <input type="submit" class="analyzes-save" value="Сохранить">
-       
-    </form>
-</div>
+<form class="LaboratoryTest" >
+    <div class="form-header">Анализы</div>
+   
+    <table cellspacing="1"> 
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Классификатор</mat-label>
+            <input matInput id="codeTest"/>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Название</mat-label>
+            <input matInput id="nameTest"/>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Лаборатория</mat-label>
+            <input matInput id="laboratoryName"/>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-label>Значение теста</mat-label>
+            <input matInput id="valueTest" type="number"/>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Значение юнит-теста</mat-label>
+            <input matInput id="unitTest"/>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>Дата</mat-label>
+            <input id="dateTest" matInput type="date" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <div  *ngFor="let analyze of analyzes.controls;">
+      <ng-container [formGroup]="analyze">
+      <table> 
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Классификатор</mat-label>
+              <input matInput formControlName="codeTest" id="codeTest"/>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Название</mat-label>
+              <input matInput formControlName="nameTest" id="nameTest"/>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Лаборатория</mat-label>
+              <input matInput formControlName="laboratoryName" id="laboratoryName"/>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>Значение теста</mat-label>
+              <input matInput formControlName="valueTest" id="valueTest" type="number"/>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Значение юнит-теста</mat-label>
+              <input matInput formControlName="unitTest" id="unitTest"/>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>Дата</mat-label>
+              <input id="dateTest" formControlName="dateTest" matInput type="date" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </ng-container>
+    </div>
+    <button (click)="addAnalyze()">Добавить</button>
+    <button (click)="deleteAnalyze()">Удалить</button>
+  </form>

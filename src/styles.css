@@ -16,12 +16,20 @@ body {
   }
  .container {
     width:90%;
-    margin: 0 auto;
+    margin:0 auto;
 }
-.input-info{
-    width: 200px;
-    float: left;
-    
+
+.general-info{
+    margin-top:20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.form-header{
+    font-size:18px;
+    font-weight: bold;
+}
+mat-form-field{
+    margin-right: 10px;
 }
 .patient-form_text .treatment-form_text .analyzes-form_text{
     margin-bottom: 5px;
@@ -34,3 +42,6 @@ body {
     height: 50px;
     
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
