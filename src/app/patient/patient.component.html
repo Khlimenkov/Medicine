@@ -1,6 +1,6 @@
 <div class="container">
-<div class="general-info">
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
+<div class="general-info" >
+  <form [formGroup]="patientForm" (ngSubmit)="submitForm()" >
     <div class="form-header">Информация о пациенте</div>
     <table cellspacing="1">
       <tr>
@@ -13,13 +13,13 @@
         <td>
           <mat-form-field>
             <mat-label>Имя</mat-label>
-            <input matInput id="name" formControlName="name" required />
+            <input formControlName="name"matInput id="name" name="name" required />
           </mat-form-field>
         </td>
         <td>
           <mat-form-field>
             <mat-label>Отчество</mat-label>
-            <input matInput id="patronymic" formControlName="patronymic" required />
+            <input formControlName="patronymic" matInput id="patronymic" name="patronymic" required />
           </mat-form-field>
         </td>
       </tr>
@@ -27,14 +27,14 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Дата рождения</mat-label>
-      <input id="dateBirth" matInput type="date" formControlName="dateBirth" />
+      <input formControlName="dateBirth" id="dateBirth" name="dateBirth"matInput type="date" />
     </mat-form-field>
     <table cellspacing="1">
       <tr>
         <td>
           <mat-form-field>
             <mat-label>Пол</mat-label>
-            <mat-select id="gender" formControlName="gender">
+            <mat-select id="gender" name="gender" formControlName="gender">
               <mat-option value="man">Мужчина</mat-option>
               <mat-option value="woman">Женщина</mat-option>
             </mat-select>
@@ -43,7 +43,7 @@
         <td>
           <mat-form-field>
             <mat-label>Тип крови</mat-label>
-            <mat-select id="bloodType" formControlName="bloodType">
+            <mat-select id="bloodType" name="bloodType"formControlName="bloodType">
               <mat-option value="O(I) Rh-">O(I) Rh-</mat-option>
               <mat-option value="O(I) Rh+">O(I) Rh+</mat-option>
               <mat-option value="A(II) Rh+">A(II) Rh+</mat-option>
@@ -57,7 +57,7 @@
         </td>
       </tr>
     </table>
-    <div class="form-header">Контакты</div>
+    <div class="header">Контакты</div>
     <table cellspacing="1"> 
       <tr>
         <td>
@@ -65,9 +65,10 @@
       <mat-label>Телефон</mat-label>
       <span matPrefix>+38 &nbsp;</span>
       <input
+      formControlName="phone"
         id="phone"
         type="tel"
-        formControlName="phone"
+        name="phone"
         matInput
         placeholder="055-555-1234"
       />
@@ -79,53 +80,50 @@
       <input
         id="email"
         type="email"
+        name="email"
         matInput
-        
-        
         formControlName="email"
         placeholder="Ex. pat@example.com"
       />
-      <!-- <mat-error
-        *ngIf="
-          emailFormControl.hasError('email') &&
-          !emailFormControl.hasError('required')
-        "
-      >
-        Веддите правильный Е-mail
-      </mat-error> -->
     </mat-form-field>
   </td>
   </tr>
   </table>
-  <div class="form-header">Адресс</div>
-  <table cellspasing="1">
+  <div class="form-header"  >Адресс</div>
+  <table [formGroup]="formAdress" cellspasing="1">
     <tr>
       <td>
         <mat-form-field>
           <mat-label>Страна</mat-label>
-          <input matInput id="country" formControlName="country"/>
+          <input formControlName="country"matInput id="country" />
         </mat-form-field>
       </td>
       <td>
         <mat-form-field>
-          <mat-label>Область</mat-label>
-          <input matInput id="region" formControlName="region"/>
+          <mat-label>Регион</mat-label>
+          <input formControlName="region" matInput id="region" />
         </mat-form-field>
         
         
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Город</mat-label>
+          <input formControlName="cityVillage"matInput id="cityVillage" >
+        </mat-form-field>
       </td>
     </tr>
     <tr>
       <td>
         <mat-form-field>
           <mat-label>Улица</mat-label>
-          <input matInput id="street" formControlName="street"/>
+          <input formControlName="street" matInput id="street"/>
         </mat-form-field>
     </td>
     <td>
       <mat-form-field>
         <mat-label>Дом, квартира</mat-label>
-        <input matInput id="houseDetails" formControlName="houseDetails"/>
+        <input formControlName="houseDetails" matInput id="houseDetails" />
       </mat-form-field>
     </td>
     </tr>
@@ -137,13 +135,13 @@
         <mat-form-field>
           <mat-label>Социальный статус</mat-label>
           
-          <input matInput id="socialStatus" formControlName="socialStatus"/>
+          <input formControlName="socialStatus" name="socialStatus"matInput id="socialStatus" >
         </mat-form-field>
       </td>
       <td>
         <mat-form-field>
           <mat-label>Сем. положение</mat-label>
-          <mat-select id="maritalStatus" formControlName="maritalStatus">
+          <mat-select id="maritalStatus" name="maritalStatus" formControlName="maritalStatus">
             <mat-option value="Женат/Замужем">Женат/Замужем</mat-option>
             <mat-option value="Не женат/Не замужем">Не женат/Не замужем</mat-option>
           </mat-select>
@@ -151,9 +149,9 @@
       </td>
     </tr>
   </table>
-  <button type="submit" [disabled]="form.invalid">Send</button>
+  <button type="submit" >Send</button>
   </form>
-  <app-analyzes></app-analyzes>
+  <app-treatmentsession [PatientId]="patientid"></app-treatmentsession>
 </div>
 </div>
 

@@ -1,69 +1,62 @@
 <div class="container">
-    <div class="general-info">
-        <form class="TreatmentSession">
+    <div class="general-info flex-wrap ">
+        <form class="TreatmentSession" (ngSubmit)="submitForm()">
             <div class="form-header">Заболевания</div>
-            <!-- <button (click)="addTreatmentSession()">Добавить</button>
-            <button (click)="deleteTreatmentSession()">Удалить</button> -->
-            <table>
+            <div *ngFor="let ill of ills.controls; let i=index;">
+                
+                <table [formGroup]='ill'>
                 <tr>
                     <td>
                         <mat-form-field>
                             <mat-label>Классификатор</mat-label>
-                            <input matInput id="codeIll"/>
+                            <input matInput id="codeIll" formControlName="codeIll"/>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
                             <mat-label>Диагноз</mat-label>
-                            <input matInput id="nameIll"/>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Начало лечения</mat-label>
-                            <input id="startSession" matInput type="datetime-local" />
-                            
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Конец лечения</mat-label>
-                            <input id="endSession" matInput type="datetime-local" />
-                            
+                            <input matInput id="nameIll" formControlName="nameIll"/>
                         </mat-form-field>
                     </td>
                 </tr>
             </table>
+                <table [formGroup]='treatments.controls[i]'>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Начало лечения</mat-label>
+                                <input id="startSession" matInput type="datetime-local" formControlName="startSession" />
+                                
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Конец лечения</mat-label>
+                                <input id="endSession" matInput type="datetime-local" formControlName="endSession"/>
+                                
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <button  mat-raised-button (click)="deleteTreatmentSession(i)" >Удалить</button>
+                <button  mat-raised-button routerLink="/detailStage/{{p}}" >Стадии заболевания</button>
+            
+                
+                
+            </div>
+      
+                
+               
+       
+         
+         <button  mat-raised-button type="submit" >Отправить</button>
+         <button mat-raised-button (click)="addTreatmentSession()" >Добавить</button>
+    
+         
             
         </form>
-        <form>
-            <div class="form-header">Стадии заболевания</div>
-            <table>
-                <tr>
-                <td>
-                    <mat-form-field>
-                        <mat-label>Cтадия</mat-label>
-                        <input matInput id="stageName"/>
-                    </mat-form-field>
-                </td>
-            
-            
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Начало стадии</mat-label>
-                        <input id="startStage" matInput type="datetime-local" />
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Конец стадии</mat-label>
-                        <input id="endStage" matInput type="datetime-local" />
-                    </mat-form-field>
-                </td>
-            </tr>
-            </table>
-        </form>
+        
+        
+
     </div>
 </div>

@@ -50,15 +50,34 @@
         "maritalStatus":"No"
     }
 ],
-"analyzes":[
+"TreatmentSession":[
     {
-        "patientId":"1",
-        "test":"test1"
-    },
-    {
-        "patientId":"2",
-        "test":"test2"
+        "id":"10",
+        "idPatient":"1",
+        "idMainIll":"1",
+        "startSession":"2020-10-10 22:00",
+        "endSession":"2021-10-10 23:00",
+        "idDoctor":"1"
+    },{
+        "id":"11",
+        "idPatient":"2",
+        "idMainIll":"2",
+        "startSession":"2020-09-10 22:00",
+        "endSession":"2021-11-10 23:00",
+        "idDoctor":"1"
     }
 
+],
+"NationCl025":[
+    {
+        "id":"1",
+    "codeIll":"qwe21",
+    "nameIll":"Alkogolism"
+    },
+    {
+        "id":"2",
+    "codeIll":"qwe2ss1",
+    "nameIll":"Alkogolism"
+    }
 ]
 }

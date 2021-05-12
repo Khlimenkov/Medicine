@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="general-info flex-wrap ">
+       
+         <form (ngSubmit)="submitStages()">
+            <div class="form-header">Стадии заболевания</div>
+                <div *ngFor="let stage of stages.controls; let i=index;">
+                    <table [formGroup]='stage'> 
+                    <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Cтадия</mat-label>
+                            <input matInput id="stageName" formControlName="stageName"/>
+                        </mat-form-field>
+                    </td>
+                
+                
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Начало стадии</mat-label>
+                            <input id="startStage" matInput type="datetime-local" formControlName="startStage" />
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Конец стадии</mat-label>
+                            <input id="endStage" matInput type="datetime-local" formControlName="endStage" />
+                        </mat-form-field>
+                    </td>
+                </tr>
+                </table>
+                <button mat-raised-button (click)="deleteStage(i)">Удалить</button>
+            </div>
+            
+            <button mat-raised-button type="submit">Отправить</button>
+            <button mat-raised-button (click)="addStage()">Добавить</button>
+            
+            </form>
+            
+            <div>
+            <app-surgery></app-surgery>
+            <app-ultrasound-therapy></app-ultrasound-therapy>
+            <app-physiotherapy></app-physiotherapy>
+        </div>
+    </div>
+</div>

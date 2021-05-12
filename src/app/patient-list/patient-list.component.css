@@ -1,5 +1,21 @@
 .wrapper{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 100px;
     grid-column-gap:10px;
+    grid-row-gap: 10px;
+    
 }
+.patient-item{
+    padding: 10px;
+    height: 100%;
+    align-items: center;
+    border: 1px solid black;
+}
+li{
+    list-style-type: none;
+}
+button{
+    margin: 10px;
+}
+

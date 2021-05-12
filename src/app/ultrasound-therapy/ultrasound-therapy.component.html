@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="general-info flex-wrap ">
+         <form>
+                <div class="form-header">УЗИ-диагностика</div>
+                <div>
+                    <table>
+                    <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Название</mat-label>
+                            <input matInput id="stageName"/>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Значение</mat-label>
+                            <input matInput id="value"/>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Юнит-значение</mat-label>
+                            <input matInput id="value"/>
+                        </mat-form-field>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Дата</mat-label>
+                            <input id="startStage" matInput type="datetime-local" />
+                        </mat-form-field>
+                    </td>
+                   
+                </tr>
+                </table>
+            </div>
+            <button mat-raised-button>Отправить</button>
+            <button mat-raised-button>Добавить</button>
+            <button mat-raised-button>Удалить</button>
+            </form>
+            
+    </div>
+</div>
