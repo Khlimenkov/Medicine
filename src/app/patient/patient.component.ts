@@ -4,8 +4,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from '../patient.service';
-import { Patient } from '../patient';
-import { Address } from '../patient';
+import { Patient } from '../models';
+import { Address } from '../models';
 
 
 @Component({
@@ -14,9 +14,9 @@ import { Address } from '../patient';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent {
-  patient: Patient;
-  address: Address;
-patientForm = this.fb.group({
+   patient: Patient;
+   address: Address;
+ patientForm = this.fb.group({
     id:[''],
     surname: ['',Validators.required],
     name:['',Validators.required],
@@ -30,7 +30,7 @@ patientForm = this.fb.group({
     socialStatus:[''],
     maritalStatus:[''],
   });
-  formAdress = this.fb.group({
+   formAdress = this.fb.group({
       id:[''],
       country:[''],
       region:[''],
@@ -44,14 +44,14 @@ patientForm = this.fb.group({
     public fb: FormBuilder,
     private http: HttpClient) {}
 
-  ngOnInit() { 
+   ngOnInit() { 
     if(this.getPatient !=null){
       this.getPatient();
     }
     
   }
   
-  getPatient():void{
+   getPatient():void{
     const id = this.route.snapshot.paramMap.get('id');
     this.patientService.getPatient(id).subscribe(patient =>{
        this.patient = patient
@@ -87,16 +87,54 @@ patientForm = this.fb.group({
       });
      
     }
-    idAddress;
-    patientid;
-    setPatientId(patientid:string){
+     idAddress;
+     patientid;
+     setPatientId(patientid:string){
       if(patientid!=null){
         this.patientid = patientid;
       }
     }
-  submitForm() {
+   submitForm() {
+    if (this.patientForm.controls.id.value != null){
+      
+      let formAdressObj = this.formAdress.getRawValue();
+    let serializedAdressForm = JSON.stringify(formAdressObj)
     
-    let formAdressObj = this.formAdress.getRawValue();
+    
+    let httpOptions={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+   
+    this.http.put(`http://127.0.0.1:8000/api/Address/${this.formAdress.controls.id.value}/`, serializedAdressForm, httpOptions).subscribe(
+      (response) => {
+        console.log(response);
+        
+        this.idAddress= response
+        this.idAddress = this.idAddress.id;
+        this.patientForm.controls['idAddress'].setValue(this.idAddress)
+        let formObj = this.patientForm.getRawValue();
+        let serializedForm = JSON.stringify(formObj);
+        console.log(serializedForm);
+        this.http.put(`http://127.0.0.1:8000/api/Patient/${this.patientForm.controls.id.value}/`, serializedForm, httpOptions)
+    .subscribe(
+      (response) => {
+        this.patientid = response;
+        this.patientid = this.patientid.id;
+        this.setPatientId(this.patientid);
+        console.log(response)
+      },
+      
+      (error) => console.log(error),
+      
+    )
+       },
+      (error) => console.log(error),
+     
+    )
+    } else {
+      let formAdressObj = this.formAdress.getRawValue();
     let serializedAdressForm = JSON.stringify(formAdressObj)
     
     
@@ -131,6 +169,8 @@ patientForm = this.fb.group({
       (error) => console.log(error),
      
     )
+    }
+    
     
     
     

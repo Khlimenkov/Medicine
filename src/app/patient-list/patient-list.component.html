@@ -1,14 +1,19 @@
 <div class="container">
         <ul id="patient-list"class="wrapper">
-            <li class="patient-item" *ngFor = "let patient of patients" [class.selected]="patient === selectedPatient"  >
+            <mat-form-field>
+                <mat-label>Поиск</mat-label>
+                <input matInput [formControl]="search" placeholder="Введите фамилию">
+            </mat-form-field>
+           
+            <li class="patient-item" *ngFor="let patient of searchList()" [class.selected]="patient === selectedPatient"  >
                 <div class="item-image"></div>
                 <div class="item-info">
                     {{patient.name}} {{patient.surname}} {{patient.patronymic}}
                 </div>
                 
                 <button mat-raised-button (click)="deletePatient(patient)">Удалить пациента</button>
-                <button mat-raised-button routerLink="/detail/{{patient.id}}">Перейти в карточку</button>
-                <button mat-raised-button href="#">Заболевания</button>
+                <button mat-raised-button routerLink="/medicalcard/detail/{{patient.id}}">Перейти в карточку</button>
+                
             </li>
         </ul>
         

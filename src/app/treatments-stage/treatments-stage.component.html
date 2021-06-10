@@ -1,9 +1,10 @@
 <div class="container">
-    <div class="general-info flex-wrap ">
+    <div class="general-info  ">
        
-         <form (ngSubmit)="submitStages()">
+         <form >
             <div class="form-header">Стадии заболевания</div>
-                <div *ngFor="let stage of stages.controls; let i=index;">
+                <div *ngFor="let stage of stages.controls; let i=index;" class="flex-wrap">
+                <div>
                     <table [formGroup]='stage'> 
                     <tr>
                     <td>
@@ -29,17 +30,25 @@
                 </tr>
                 </table>
                 <button mat-raised-button (click)="deleteStage(i)">Удалить</button>
+                </div>
+                <div class="flex-wrap" style="margin-bottom: 20px; flex-direction: column;">
+                <button mat-raised-button routerLink="/surgery/{{stage.value.id}}">Операции</button>
+                <button mat-raised-button routerLink="/pharmacotherapy/{{stage.value.id}}">Таблетки</button>
+                <button mat-raised-button routerLink="/physiotherapy/{{stage.value.id}}">Физиотерапия</button>
+                <button mat-raised-button routerLink="/ultrasound/{{stage.value.id}}">Ультразвуковая терапия</button>
+                
+            </div>
+            <div class="flex-wrap" style="margin-bottom: 20px; flex-direction: column;">
+                <button mat-raised-button routerLink="/analyze/{{idState[i]}}">Анализы</button>
+                <button mat-raised-button routerLink="/measurement/{{idState[i]}}">Измерения</button>
+            </div>
             </div>
             
-            <button mat-raised-button type="submit">Отправить</button>
+            <button mat-raised-button (click)="submitStages()">Отправить</button>
             <button mat-raised-button (click)="addStage()">Добавить</button>
             
             </form>
             
-            <div>
-            <app-surgery></app-surgery>
-            <app-ultrasound-therapy></app-ultrasound-therapy>
-            <app-physiotherapy></app-physiotherapy>
-        </div>
+            
     </div>
 </div>

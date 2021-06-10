@@ -1,42 +1,48 @@
 <div class="container">
     <div class="general-info flex-wrap ">
          <form>
-                <div class="form-header">Физиотерапия</div>
+                <div class="form-header">Таблетки</div>
                 <div *ngFor="let therapy of therapies.controls; let i = index">
-                    <table [formGroup]="therapy">
+                    <table [formGroup]='therapy'>
                     <tr>
                     <td>
-                        <mat-form-field>
+                        <mat-form-field >
                             <mat-label>Название</mat-label>
-                            <input matInput id="stageName" formControlName="namePhysiotherapy"/>
+                            <mat-select  matInput id="nameInterven" formControlName="idNamePill">
+                                <mat-option *ngFor="let pill of pills" value="{{pill.id}}">{{pill.namePill}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Доза</mat-label>
+                            <input  matInput  formControlName="dosePill"/>
                         </mat-form-field>
                     </td>
                     <td>
-                        <mat-form-field>
-                            <mat-label>Значение</mat-label>
-                            <input matInput id="value" formControlName="valuePhysiotherapy"/>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field>
+                        <mat-form-field appearance="fill">
                             <mat-label>Единица измерения</mat-label>
-                            <input matInput id="unit" formControlName="unitPhysiotherapy"/>
+                            <input  matInput  formControlName="unitPill"/>
                         </mat-form-field>
                     </td>
                     
                     <td>
                         <mat-form-field appearance="fill">
-                            <mat-label>Дата</mat-label>
-                            <input id="date" matInput type="datetime-local" formControlName="datePhysiotherapy"/>
+                            <mat-label>Дата приема</mat-label>
+                            <input  matInput type="datetime-local" formControlName="datePill"/>
                         </mat-form-field>
                     </td>
-                   
+                    
                 </tr>
+                
                 </table>
                 <button mat-raised-button (click)="deleteTherapy(i)">Удалить</button>
             </div>
             <button mat-raised-button (click)="submitTherapies()">Отправить</button>
             <button mat-raised-button (click)="addTherapy()">Добавить</button>
+            
             </form>
             
     </div>

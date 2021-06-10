@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 
-import { NationCl025, TreatmentSession } from 'src/app/patient';
+import { NationCl025, TreatmentSession } from 'src/app/models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -11,8 +11,8 @@ export class TreatmentService {
 
     private treatmentsUrl = 'http://127.0.0.1:8000/api/TreatmentSession/';
     private illsUrl = 'http://127.0.0.1:8000/api/NationCl025/';
-
-  httpOptions = {
+    private comorbidityUrl = 'http://127.0.0.1:8000/api/Comorbidity/';
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
@@ -33,6 +33,10 @@ export class TreatmentService {
   getIll(id:string): Observable<NationCl025> {
     const url = `${this.illsUrl}${id}`;
     return this.http.get<NationCl025>(url);
+  }
+
+  addComorbidity(comorbidity:string){
+    return this.http.post(this.comorbidityUrl, comorbidity, this.httpOptions);
   }
  
 
@@ -56,8 +60,8 @@ export class TreatmentService {
   }
 
   /** PUT: update the hero on the server */
-  updateTreatment(treatment: TreatmentSession): Observable<any> {
-    return this.http.post(this.treatmentsUrl, treatment, this.httpOptions)
+  updateTreatment(treatment: TreatmentSession, id: string): Observable<any> {
+    return this.http.post(`${this.treatmentsUrl}${id}`, treatment, this.httpOptions)
   }
   updateIll(ill: NationCl025): Observable<any> {
     return this.http.post(this.illsUrl, ill, this.httpOptions)

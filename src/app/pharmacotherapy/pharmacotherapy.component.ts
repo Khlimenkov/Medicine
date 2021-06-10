@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { UltrasoundService } from '../ultrasound.service';
+import { NationClPills } from '../models';
+import { PharmacotherapyService } from '../pharmacotherapy.service';
+
 @Component({
-  selector: 'app-ultrasound-therapy',
-  templateUrl: './ultrasound-therapy.component.html',
-  styleUrls: ['./ultrasound-therapy.component.css']
+  selector: 'app-pharmacotherapy',
+  templateUrl: './pharmacotherapy.component.html',
+  styleUrls: ['./pharmacotherapy.component.css']
 })
-export class UltrasoundTherapyComponent implements OnInit {
+export class PharmacotherapyComponent implements OnInit {
 
    idStage:string;
   constructor(
-    private therapyService: UltrasoundService,
+    private therapyService: PharmacotherapyService,
     
     private route: ActivatedRoute,
     public fb: FormBuilder,
     private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.getNationalClPill();
   
     this.idStage = '';
     this.idStage = this.route.snapshot.paramMap.get('id');
@@ -28,17 +33,22 @@ export class UltrasoundTherapyComponent implements OnInit {
     }
   }
    therapies = new FormArray([]);
- 
+   pills: Array<NationClPills> = [];
+   getNationalClPill(){
+    this.therapyService.getNationClPills().subscribe(response =>{
+      response.forEach((el)=> this.pills.push(el));
+    })
+  }
  
 
    addTherapy():void{
     let therapy = new FormGroup({
       id:new FormControl(''),
-      nameEus: new FormControl(''),
-      valueEus: new FormControl (),
-      unitEus: new FormControl(''),
+      dosePill: new FormControl(''),
+      unitPill: new FormControl (),
+      datePill: new FormControl(''),
       idStage:new FormControl(this.idStage),
-      dateEus: new FormControl(''),
+      idNamePill: new FormControl('')
      })
      this.therapies.push(therapy);
   }
@@ -52,13 +62,13 @@ export class UltrasoundTherapyComponent implements OnInit {
         this.addTherapy();
         this.therapies.controls[index].patchValue({
           id:response[index].id,
-          nameEus: response[index].nameEus,
-          valueEus: response[index].valueEus,
-          unitEus: response[index].unitEus,
+          dosePill: response[index].dosePill,
+          unitPill: response[index].unitPill,
+          datePill: response[index].datePill.split(':').slice(0,2).join(':'),
           idStage:response[index].idStage,
-          dateEus: response[index].dateEus.split(':').slice(0,2).join(':'),
-         
-        })}
+          idNamePill: response[index].idNamePill,
+        })
+      }
     })
   }
    deleteTherapy(index:number){

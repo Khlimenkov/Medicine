@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="general-info flex-wrap ">
+         <form>
+                <div class="form-header">Анализы</div>
+                <div *ngFor="let test of tests.controls; let i = index">
+                    <table [formGroup]='test'>
+                    <tr>
+                    <td>
+                        <mat-form-field >
+                            <mat-label>Название</mat-label>
+                            <mat-select  matInput id="nameTest" formControlName="nameTest">
+                                <mat-option *ngFor="let analyze of analyzes" value="{{analyze.id}}">{{analyze.nameTest}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Лаборатория</mat-label>
+                            <input  matInput type="datetime-local" formControlName="laboratoryName"/>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Значение</mat-label>
+                            <input  matInput  formControlName="valueTest"/>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Юнит-значение</mat-label>
+                            <input  matInput  formControlName="unitTest"/>
+                        </mat-form-field>
+                    </td>
+                    
+                    <td>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Дата</mat-label>
+                            <input  matInput type="datetime-local" formControlName="dateTest"/>
+                        </mat-form-field>
+                    </td>
+                    
+                </tr>
+                
+                </table>
+                <button mat-raised-button (click)="deleteLabTets(i)">Удалить</button>
+            </div>
+            <button mat-raised-button (click)="submittests()">Отправить</button>
+            <button mat-raised-button (click)="addLabTest()">Добавить</button>
+            
+            </form>
+            
+    </div>
+</div>

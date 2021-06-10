@@ -1,44 +1,43 @@
 <div class="container">
     <div class="general-info flex-wrap ">
-         <form>
-                <div class="form-header">УЗИ-диагностика</div>
-                <div>
-                    <table>
-                    <tr>
-                    <td>
-                        <mat-form-field>
-                            <mat-label>Название</mat-label>
-                            <input matInput id="stageName"/>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field>
-                            <mat-label>Значение</mat-label>
-                            <input matInput id="value"/>
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field>
-                            <mat-label>Юнит-значение</mat-label>
-                            <input matInput id="value"/>
-                        </mat-form-field>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Дата</mat-label>
-                            <input id="startStage" matInput type="datetime-local" />
-                        </mat-form-field>
-                    </td>
-                   
-                </tr>
-                </table>
-            </div>
-            <button mat-raised-button>Отправить</button>
-            <button mat-raised-button>Добавить</button>
-            <button mat-raised-button>Удалить</button>
-            </form>
+        <form>
+            <div class="form-header">Ультразвуковая терапия</div>
+            <div *ngFor="let therapy of therapies.controls; let i = index">
+                <table [formGroup]="therapy">
+                <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Название</mat-label>
+                        <input matInput id="stageName" formControlName="nameEus"/>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Значение</mat-label>
+                        <input matInput id="value" formControlName="valueEus"/>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Единица измерения</mat-label>
+                        <input matInput id="unit" formControlName="unitEus"/>
+                    </mat-form-field>
+                </td>
+                
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Дата</mat-label>
+                        <input id="date" matInput type="datetime-local" formControlName="dateEus"/>
+                    </mat-form-field>
+                </td>
+               
+            </tr>
+            </table>
+            <button mat-raised-button (click)="deleteTherapy(i)">Удалить</button>
+        </div>
+        <button mat-raised-button (click)="submitTherapies()">Отправить</button>
+        <button mat-raised-button (click)="addTherapy()">Добавить</button>
+        </form>
             
     </div>
 </div>

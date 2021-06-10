@@ -1,21 +1,18 @@
 <div class="container">
     <div class="general-info flex-wrap ">
-        <form class="TreatmentSession" (ngSubmit)="submitForm()">
+        <form class="TreatmentSession" >
             <div class="form-header">Заболевания</div>
             <div *ngFor="let ill of ills.controls; let i=index;">
                 
                 <table [formGroup]='ill'>
                 <tr>
-                    <td>
-                        <mat-form-field>
-                            <mat-label>Классификатор</mat-label>
-                            <input matInput id="codeIll" formControlName="codeIll"/>
-                        </mat-form-field>
-                    </td>
+                    
                     <td>
                         <mat-form-field>
                             <mat-label>Диагноз</mat-label>
-                            <input matInput id="nameIll" formControlName="nameIll"/>
+                        <mat-select  id="nameIll" formControlName="idNameIll">
+                            <mat-option *ngFor="let illData of illNames" value="{{illData.id}}">{{illData.nameIll}}</mat-option>
+                        </mat-select>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -36,10 +33,20 @@
                                 
                             </mat-form-field>
                         </td>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Доктор</mat-label>
+                                <mat-select id="doctor" matInput formControlName="idDoctor">
+                                    <mat-option *ngFor="let doctor of doctors" value="{{doctor.id}}">{{doctor.name+' '+ doctor.surname}}</mat-option>
+
+                                </mat-select>
+                                
+                            </mat-form-field>
+                        </td>
                     </tr>
                 </table>
                 <button  mat-raised-button (click)="deleteTreatmentSession(i)" >Удалить</button>
-                <button  mat-raised-button routerLink="/detailStage/{{p}}" >Стадии заболевания</button>
+                <button  mat-raised-button type="button" routerLink="/detailStage/{{treatments.controls[i].value.id}}" >Стадии заболевания</button>
             
                 
                 
@@ -49,7 +56,7 @@
                
        
          
-         <button  mat-raised-button type="submit" >Отправить</button>
+         <button  mat-raised-button type="button" (click)="submitForm()" >Отправить</button>
          <button mat-raised-button (click)="addTreatmentSession()" >Добавить</button>
     
          

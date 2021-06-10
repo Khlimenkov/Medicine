@@ -2,13 +2,16 @@
     <div class="general-info flex-wrap ">
          <form>
                 <div class="form-header">Операции</div>
-                <div>
-                    <table>
+                <div *ngFor="let surgery of surgeries.controls; let i = index">
+                    <table [formGroup]='surgery'>
                     <tr>
                     <td>
-                        <mat-form-field>
-                            <mat-label>Операция</mat-label>
-                            <input matInput id="stageName"/>
+                        <mat-form-field >
+                            <mat-label>Название</mat-label>
+                            <mat-select  matInput id="nameInterven" formControlName="idNameIntervention">
+                                <mat-option *ngFor="let name of surgeryNames" value="{{name.id}}">{{name.nameIntervention}}</mat-option>
+
+                            </mat-select>
                         </mat-form-field>
                     </td>
                 
@@ -16,16 +19,28 @@
                     <td>
                         <mat-form-field appearance="fill">
                             <mat-label>Дата операции</mat-label>
-                            <input id="startStage" matInput type="datetime-local" />
+                            <input id="dateInterven" matInput type="datetime-local" formControlName="DateIntervention"/>
                         </mat-form-field>
                     </td>
                     
                 </tr>
+                <tr>
+                    <td>
+                        <mat-form-field>
+                            <mat-label>Доктор</mat-label>
+                            <mat-select  matInput id="idMedStaff" formControlName="idMedStuff">
+                                <mat-option *ngFor="let doctor of doctors" value="{{doctor.id}}">{{doctor.surname + " " + doctor.name}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
                 </table>
+                <button mat-raised-button (click)="deleteSurgery(i)">Удалить</button>
             </div>
-            <button mat-raised-button>Отправить</button>
-            <button mat-raised-button>Добавить</button>
-            <button mat-raised-button>Удалить</button>
+            <button mat-raised-button (click)="submitSurgeries()">Отправить</button>
+            <button mat-raised-button (click)="addSurgery()">Добавить</button>
+            
             </form>
             
     </div>

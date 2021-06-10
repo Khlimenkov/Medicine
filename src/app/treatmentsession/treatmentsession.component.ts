@@ -1,14 +1,18 @@
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { Input } from '@angular/core';
+import { Inject, Input, NgModule } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NationCl025, TreatmentSession } from '../patient';
+import { MedicalStaff, NationCl025, TreatmentSession } from '../models';
 import { PatientService } from '../patient.service';
 import { TreatmentService } from '../treatment.service';
 import { map, catchError } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { DoctorService } from '../doctor.service';
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-treatmentsession',
@@ -16,31 +20,34 @@ import { map, catchError } from 'rxjs/operators';
   styleUrls: ['./treatmentsession.component.css']
 })
 export class TreatmentsessionComponent implements OnInit {
-  @Input() PatientId:string;
-  treatment: TreatmentSession;
-  ill: NationCl025;
+  @Input()  PatientId:string;
+   treatment: TreatmentSession;
+   ill: NationCl025;
   constructor(
+    @Inject(DOCUMENT) private _document: Document,
     private treatmentsService: TreatmentService,
-    private patientsService: PatientService,
-    private route: ActivatedRoute,
+    private doctorService: DoctorService,
     public fb: FormBuilder,
     private http: HttpClient) {}
-  treatments = new FormArray([]);
-  ills = new FormArray([]);
+   treatments = new FormArray([]);
+   ills = new FormArray([]);
   ngOnInit(): void {
     
   }
-  ngOnChanges(){
+   ngOnChanges(){
+    this.getNationalCl();
+    this.getDoctors();
     if(this.PatientId != null){
       this.getTreatment(this.PatientId);
     }
     
   }
-  addTreatmentSession():void{
+   addTreatmentSession():void{
     let ill = new FormGroup({
       id:new FormControl(''),
-      codeIll:new FormControl(''),
-      nameIll:new FormControl(''),
+      idSession:new FormControl(''),
+      idNameIll:new FormControl(''),
+      
       
     })
     this.ills.push(ill);
@@ -60,7 +67,7 @@ export class TreatmentsessionComponent implements OnInit {
 
       
 }
-  deleteTreatmentSession(index:number){
+   deleteTreatmentSession(index:number){
     if(this.treatments.length >= 0){
       this.treatments.removeAt(index);
       this.ills.removeAt(index);
@@ -75,13 +82,25 @@ export class TreatmentsessionComponent implements OnInit {
     } 
    
   }
-  idIll;
-  getTreatment(PatientId:string):void{
+   illNames:Array<NationCl025> = [];
+   doctors:Array<MedicalStaff> = [];
+   getNationalCl(){
+    this.treatmentsService.getIlls().subscribe(response=>{
+      response.forEach((el)=> this.illNames.push(el))
+      
+    })
+  }
+   getDoctors(){
+    this.doctorService.getDoctors().subscribe(response=>{
+      response.forEach((el)=> this.doctors.push(el))
+    })
+  }
+   idIll;
+   getTreatment(PatientId:string):void{
     this.treatmentsService.getTreatments().pipe(map(data =>{
         return data.filter(d=> d.idPatient == PatientId)
       })
     ).subscribe(response => {
-      
       
       for (let index = 0; index < response.length; index++) {
         let treatment = new FormGroup({
@@ -93,7 +112,7 @@ export class TreatmentsessionComponent implements OnInit {
           idDoctor:new FormControl(''),
         })
         this.treatments.push(treatment);
-        
+        console.log(this.treatments.controls[index])
         this.treatments.controls[index].patchValue({
           id: response[index].id,
           idPatient:response[index].idPatient,
@@ -109,14 +128,12 @@ export class TreatmentsessionComponent implements OnInit {
           
           let ill = new FormGroup({
             id:new FormControl(''),
-            codeIll:new FormControl(''),
-            nameIll:new FormControl(''),
+            idSession:new FormControl(''),
+            idNameIll:new FormControl(''),
           })
           this.ills.push(ill);
           this.ills.controls[index].patchValue({
-            id:responseIll[0].id,
-            codeIll:responseIll[0].codeIll,
-            nameIll:responseIll[0].nameIll,
+            idNameIll:responseIll[0].id,
           })
         })
         
@@ -125,7 +142,7 @@ export class TreatmentsessionComponent implements OnInit {
       
     })
   }
-  submitForm(){
+   submitForm(){
     this.treatmentsService.getTreatments().pipe(map(data=>{
       return data.filter(d=> d.idPatient == this.PatientId)
     })).subscribe(treatments => {
@@ -133,50 +150,28 @@ export class TreatmentsessionComponent implements OnInit {
         treatments.forEach((treatment)=>{
           console.log(treatment);
           this.treatmentsService.deleteTreatment(treatment).subscribe(() => {
-            let formIllsObj = this.ills.getRawValue();
-          formIllsObj.forEach((el, i)=>{
-            
-            let serializedIllsForm = JSON.stringify(el);
-            this.treatmentsService.addIll(serializedIllsForm).subscribe((response)=>{
-              
-              this.idIll = response;
-              this.idIll = this.idIll.id;
-              
+          this.ills.controls.forEach((el, i)=>{
               this.treatments.controls[i].patchValue({
-                idMainIll: this.idIll,
-                idPatient: this.PatientId
+                idMainIll: this.ills.controls[i].value.idNameIll,
+                idPatient: this.PatientId,
+               
               });
               let formTreatmentObj = this.treatments.getRawValue();
               let serializedTreatmentForm = JSON.stringify(formTreatmentObj[i]);
-              
-             
               this.treatmentsService.addTreatment(serializedTreatmentForm).subscribe((treatment)=>{
-                
               })
-            })
-            
           });
-     
-     
-           
-            
           });
         })
       }
-     
+
       if(treatments.length == 0){
-        console.log(treatments.length);
-        let formIllsObj = this.ills.getRawValue();
-          formIllsObj.forEach((el, i)=>{
+      
+       
+          this.ills.controls.forEach((el, i)=>{
             
-            let serializedIllsForm = JSON.stringify(el);
-            this.treatmentsService.addIll(serializedIllsForm).subscribe((response)=>{
-              
-              this.idIll = response;
-              this.idIll = this.idIll.id;
-              
               this.treatments.controls[i].patchValue({
-                idMainIll: this.idIll,
+                idMainIll: this.ills.controls[i].value.idNameIll,
                 idPatient: this.PatientId
               });
               let formTreatmentObj = this.treatments.getRawValue();
@@ -186,15 +181,19 @@ export class TreatmentsessionComponent implements OnInit {
               this.treatmentsService.addTreatment(serializedTreatmentForm).subscribe((responsqe)=>{
                 
               })
-            })
+           
             
           });
       }
-      
+      setTimeout(()=> this._document.defaultView.location.reload(), 1000);
+
       
     })
+    
 
   }
+
+  
   
 
 }
